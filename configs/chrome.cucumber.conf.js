@@ -12,6 +12,7 @@ export const config = {
       {
         browserName: "chrome",
         "goog:chromeOptions": {
+          args: ["--start-maximized", "--lang=en-EN"],
           prefs: {
             "download.default_directory": downloadDir,
           },
