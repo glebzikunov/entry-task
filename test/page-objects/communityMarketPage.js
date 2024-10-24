@@ -51,22 +51,11 @@ class CommunityMarketPage extends BasePage {
     return this.searchResultsTable.state().isDisplayed();
   }
 
-  async areSearchTagsCorrect(expectedTags) {
+  async getSearchTags() {
     const tagElementsArray = await this.searchTags.findAll(Label, "//a", "searchTag");
-    const searchTagArray = [];
+    const searchTagsArray = tagElementsArray.slice(0, -1).map(async (tagElement) => await tagElement.getText());
 
-    for (let tagElement of tagElementsArray) {
-      const searchTagText = await tagElement.getText();
-      searchTagArray.push(searchTagText);
-    }
-
-    for (let tag of expectedTags) {
-      if (!searchTagArray.includes(tag)) {
-        return false;
-      }
-    }
-
-    return true;
+    return await Promise.all(searchTagsArray);
   }
 
   async clickOnFirstItem() {

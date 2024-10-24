@@ -41,7 +41,8 @@ Then(/^Table with results is loaded$/, async () => {
 });
 
 Then(/^Tags '(.*)', '(.*)', '(.*)' in "Showing results for" are displayed$/, async (gameName, heroName, rarityType) => {
-  assert.isTrue(await CommunityMarketPage.areSearchTagsCorrect([gameName, heroName, rarityType]), "Search tags are not correct");
+  const searchTags = await CommunityMarketPage.getSearchTags();
+  assert.deepEqual(searchTags, [gameName, heroName, rarityType], "Search tags are not correct");
 });
 
 Then(/^Prices are sorted in ascending order$/, async () => {
