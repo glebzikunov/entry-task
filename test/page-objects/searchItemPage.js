@@ -1,24 +1,24 @@
-import { Label } from "../../framework/elements/index.js"
-import BasePage from "../../framework/page/BasePage.js"
+import { Label } from "../../framework/elements/index.js";
+import BasePage from "../../framework/page/BasePage.js";
 
-class searchItemPage extends BasePage {
+class SearchItemPage extends BasePage {
   constructor() {
-    super(new Label("//h1[@id='largeiteminfo_item_name']", "Item Label"), "Item Label")
+    super(new Label("//h1[@id='largeiteminfo_item_name']", "Item Label"), "Item Label");
 
-    this.itemGameName = new Label("//div[@id='largeiteminfo_game_name']")
-    this.itemHero = new Label("//div[@class='descriptor' and contains(., 'Used By')]")
-    this.itemType = new Label("//div[@id='largeiteminfo_item_type']")
+    this.itemGameName = new Label("//div[@id='largeiteminfo_game_name']");
+    this.itemHero = new Label("//div[@class='descriptor' and contains(., 'Used By')]");
+    this.itemType = new Label("//div[@id='largeiteminfo_item_type']");
   }
 
-  async isItemInfoCorrect(gameName, heroName, rarityType) {
-    const itemGame = await this.itemGameName.getText()
-    const itemHero = await this.itemHero.getText()
-    const itemType = await this.itemType.getText()
+  async getItemInfo() {
+    const itemGame = await this.itemGameName.getText();
+    const itemHero = await this.itemHero.getText();
+    const itemType = await this.itemType.getText();
 
-    if (!gameName === itemGame || !itemHero.includes(heroName) || !itemType.includes(rarityType)) return false
+    console.log([itemGame, itemHero, itemType]);
 
-    return true
+    return [itemGame, itemHero, itemType];
   }
 }
 
-export default new searchItemPage()
+export default new SearchItemPage();

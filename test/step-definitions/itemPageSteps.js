@@ -7,5 +7,10 @@ Then(/^Item page is opened$/, async () => {
 });
 
 Then(/^Item info is correct for selected filters '(.*)', '(.*)' and '(.*)'$/, async (gameName, heroName, rarityType) => {
-  assert.isTrue(await SearchItemPage.isItemInfoCorrect(gameName, heroName, rarityType), "Item info isn't correct");
+  const searchItemInfo = await SearchItemPage.getItemInfo();
+  const expectedItemInfo = [gameName, heroName, rarityType];
+
+  for (let i = 0; i < expectedItemInfo.length; i++) {
+    assert.include(searchItemInfo[i], expectedItemInfo[i], "Item info is not correct");
+  }
 });
