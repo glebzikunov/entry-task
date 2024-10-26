@@ -15,8 +15,6 @@ class SearchItemPage extends BasePage {
     const itemHero = await this.itemHero.getText();
     const itemType = await this.itemType.getText();
 
-    console.log([itemGame, itemHero, itemType]);
-
     return [itemGame, itemHero, itemType];
   }
 }

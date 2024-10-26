@@ -66,22 +66,16 @@ class CommunityMarketPage extends BasePage {
     await this.sortPriceButton.quickClick();
   }
 
-  async areItemsSorted(order = "ascending") {
-    await Browser.waitForDelay(3000);
+  async getSearchedItemsPrices() {
+    await this.searchResultsTable.state().waitForExist();
 
     const searchItemsArray = await this.searchResultsTable.findAll(Label, "//span[@class='normal_price']", "searchItem");
-    const searchItemsPrices = [];
+    const searchItemsPricesPromises = searchItemsArray.map(async (searchItem) => {
+      const searchItemText = await searchItem.getTextQuick();
+      return parseFloat(searchItemText.replace("$", ""));
+    });
 
-    for (let searchItem of searchItemsArray) {
-      const searchItemText = await searchItem.getText();
-      searchItemsPrices.push(parseFloat(searchItemText.replace("$", "")));
-    }
-
-    if (order === "ascending") {
-      return searchItemsPrices.every((price, index) => index === 0 || searchItemsPrices[index - 1] <= price);
-    } else if (order === "descending") {
-      return searchItemsPrices.every((price, index) => index === 0 || searchItemsPrices[index - 1] >= price);
-    }
+    return Promise.all(searchItemsPricesPromises);
   }
 }
 

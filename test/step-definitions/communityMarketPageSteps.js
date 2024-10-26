@@ -1,6 +1,9 @@
 import { When, Then } from "@wdio/cucumber-framework";
-import { assert } from "chai";
+import { assert, expect, use } from "chai";
+import chaiSorted from "chai-sorted";
 import CommunityMarketPage from "../page-objects/CommunityMarketPage.js";
+
+use(chaiSorted);
 
 When(/^I click on show advanced options$/, async () => {
   await CommunityMarketPage.showAdvancedOptions();
@@ -46,9 +49,9 @@ Then(/^Tags '(.*)', '(.*)', '(.*)' in "Showing results for" are displayed$/, asy
 });
 
 Then(/^Prices are sorted in ascending order$/, async () => {
-  assert.isTrue(await CommunityMarketPage.areItemsSorted(), "Prices are not sorted in ascending order");
+  expect(await CommunityMarketPage.getSearchedItemsPrices(), "Prices are not sorted in ascending order").to.be.sorted();
 });
 
 Then(/^Prices are sorted in descending order$/, async () => {
-  assert.isTrue(await CommunityMarketPage.areItemsSorted("descending"), "Prices are not sorted in descending order");
+  expect(await CommunityMarketPage.getSearchedItemsPrices(), "Prices are not sorted in descending order").to.be.sorted({ descending: true });
 });

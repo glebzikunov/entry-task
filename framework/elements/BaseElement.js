@@ -174,14 +174,21 @@ export default class BaseElement {
    * Get text from element
    * @returns {Promise<string>} Text from element
    */
-  async getText() {
+  async getText({ isQuick } = { isQuick: false }) {
     Logger.info(`${this.log()}Get text from element`);
-    await this.state().waitForExist();
+
+    if (!isQuick) {
+      await this.state().waitForExist();
+    }
 
     const element = await this._get$();
     const text = await element.getText();
     Logger.info(`Received text: "${text}"`);
     return text;
+  }
+
+  async getTextQuick() {
+    return this.getText({ isQuick: true });
   }
 
   /**
