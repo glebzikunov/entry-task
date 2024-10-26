@@ -24,7 +24,7 @@ class CommunityMarketPage extends BasePage {
     await this.advancedOptionsButton.click();
   }
 
-  isAdvancedOptionsWindowOpened() {
+  async isAdvancedOptionsWindowOpened() {
     return this.advancedSearchWindow.state().waitForDisplayed();
   }
 
@@ -46,7 +46,7 @@ class CommunityMarketPage extends BasePage {
     await this.searchButton.click();
   }
 
-  isSearchResultsTableDisplayed() {
+  async isSearchResultsTableDisplayed() {
     return this.searchResultsTable.state().isDisplayed();
   }
 
