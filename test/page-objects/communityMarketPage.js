@@ -1,4 +1,3 @@
-import Browser from "../../framework/browser/Browser.js";
 import { Button, Dropdown, Label } from "../../framework/elements/index.js";
 import BasePage from "../../framework/page/BasePage.js";
 
