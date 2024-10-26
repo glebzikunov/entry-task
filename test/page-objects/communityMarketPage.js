@@ -53,9 +53,9 @@ class CommunityMarketPage extends BasePage {
 
   async getSearchTags() {
     const tagElementsArray = await this.searchTags.findAll(Label, "//a", "searchTag");
-    const searchTagsArray = tagElementsArray.slice(0, -1).map(async (tagElement) => await tagElement.getText());
+    const searchTagsArrayPromises = tagElementsArray.slice(0, -1).map(async (tagElement) => await tagElement.getText());
 
-    return await Promise.all(searchTagsArray);
+    return Promise.all(searchTagsArrayPromises);
   }
 
   async clickOnFirstItem() {
